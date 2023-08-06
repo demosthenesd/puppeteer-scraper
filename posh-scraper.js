@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
 const path = require("path");
+const currentDate = new Date();
 
 (async () => {
   const url =
@@ -27,19 +28,30 @@ const path = require("path");
 
     // Download and save the images
 
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const characters2 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    const generateRandomString = (length) => {
+      let result = "";
+
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+      }
+
+      return result;
+    };
 
     for (let i = 0; i < imageUrls.length; i++) {
       const randomIndex = Math.floor(Math.random(20, 48) * characters.length);
       const randomIndex2 = Math.floor(Math.random(1, 10) * characters2.length);
       const imageUrl = imageUrls[i];
-      const imageName = `image_${characters.charAt(
+      const imageName = `image_${generateRandomString(10)}${characters.charAt(
         randomIndex
       )}-${characters.charAt(randomIndex2)}-${
         i + 1 * Math.floor(Math.random() * randomIndex)
-      }-${randomIndex2}.jpg`;
+      }-${randomIndex2}${currentDate.getMilliseconds()}.jpg`;
       const imagePath = path.join(outputDir, imageName);
 
       const viewSource = await page.goto(imageUrl);
