@@ -26,14 +26,25 @@ const path = require("path");
     });
 
     // Download and save the images
+
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    const characters2 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
     for (let i = 0; i < imageUrls.length; i++) {
+      const randomIndex = Math.floor(Math.random(20, 48) * characters.length);
+      const randomIndex2 = Math.floor(Math.random(1, 10) * characters2.length);
       const imageUrl = imageUrls[i];
-      const imageName = `image_${i + 1}.jpg`;
+      const imageName = `image_${characters.charAt(
+        randomIndex
+      )}-${characters.charAt(randomIndex2)}-${
+        i + 1 * Math.floor(Math.random() * randomIndex)
+      }-${randomIndex2}.jpg`;
       const imagePath = path.join(outputDir, imageName);
 
       const viewSource = await page.goto(imageUrl);
       fs.writeFileSync(imagePath, await viewSource.buffer());
-      console.log(`Image ${i + 1} downloaded successfully.`);
+      console.log(` ${imageName} downloaded successfully.`);
     }
 
     await browser.close();
