@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This repository contains a Node.js web scraping tool using Puppeteer to download images from your sister's Poshmark store. The purpose of this tool is to assist you in creating an ecommerce website for her, utilizing the items listed on her Poshmark store.
+This repository contains a Node.js web scraping tool using Puppeteer to download images from my sister's Poshmark store.
 
 ## Prerequisites
 
